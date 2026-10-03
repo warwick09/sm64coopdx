@@ -1,4 +1,5 @@
 #include "socket/socket.h"
+#include "socket/lan_discovery.h"
 #include "coopnet/coopnet.h"
 #include <stdio.h>
 #include "network.h"
@@ -161,6 +162,11 @@ bool network_init(enum NetworkType inNetworkType, bool reconnecting) {
     gNetworkType = inNetworkType;
 
     if (gNetworkType == NT_SERVER) {
+        // advertise this server to LAN clients (direct/socket servers only)
+        if (gNetworkSystem == &gNetworkSystemSocket && !gCLIOpts.noLan) {
+            lan_discovery_server_start(configHostPort ? configHostPort : DEFAULT_PORT);
+        }
+
         extern s16 gCurrSaveFileNum;
         gCurrSaveFileNum = configHostSaveSlot;
 
@@ -597,6 +603,9 @@ void network_update(void) {
         gNetworkSystem->update();
     }
 
+    // LAN discovery (answers probes when hosting, collects replies when browsing)
+    lan_discovery_update();
+
     // update reliable and ordered packets
     if (gNetworkType != NT_NONE) {
         network_update_reliable();
@@ -680,6 +689,8 @@ void network_shutdown(bool sendLeaving, bool exiting, bool popup, bool reconnect
     }
 
     gNetworkSentJoin = false;
+
+    lan_discovery_server_stop();
 
     network_forget_all_reliable();
     if (gNetworkSystem == NULL) {

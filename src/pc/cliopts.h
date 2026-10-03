@@ -37,6 +37,8 @@ struct CLIOptions {
     int enabledModsCount;
     char** enableMods;
     bool headless;
+    bool noLan;
+    unsigned int lanPort;
 #if defined(_WIN32)
     int backend;
 #endif

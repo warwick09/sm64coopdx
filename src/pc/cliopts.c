@@ -35,6 +35,8 @@ static void print_help(void) {
     printf("--disable-mods            Disables all mods that are already enabled.\n");
     printf("--enable-mod MODNAME      Enables a mod.\n");
     printf("--headless                Enable Headless mode.\n");
+    printf("--lan-port PORT           UDP port used for LAN server discovery (default 7778).\n");
+    printf("--no-lan                  Do not answer LAN discovery probes when hosting.\n");
 #if defined(_WIN32)
     printf("--backend                 Sets the backend to either 'opengl' or 'directx'.");
 #endif
@@ -121,6 +123,10 @@ bool parse_cli_opts(int argc, char* argv[]) {
             gCLIOpts.enableMods[gCLIOpts.enabledModsCount - 1] = strdup(argv[++i]);
         } else if (!strcmp(argv[i], "--headless")) {
             gCLIOpts.headless = true;
+        } else if (!strcmp(argv[i], "--no-lan")) {
+            gCLIOpts.noLan = true;
+        } else if (!strcmp(argv[i], "--lan-port") && (i + 1) < argc) {
+            arg_uint("--lan-port <port>", argv[++i], &gCLIOpts.lanPort);
 #if defined(_WIN32)
         } else if (!strcmp(argv[i], "--backend") && (i + 1) < argc) {
             if (!strcmp(argv[i + 1], "opengl")) {

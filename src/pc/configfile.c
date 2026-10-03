@@ -203,6 +203,9 @@ unsigned int configHostPort                       = DEFAULT_PORT;
 unsigned int configHostSaveSlot                   = 1;
 char         configJoinIp[MAX_CONFIG_STRING]      = "";
 unsigned int configJoinPort                       = DEFAULT_PORT;
+unsigned int configLanPort                        = 7778;
+bool         configLanDiscovery                   = true;
+unsigned int configJoinTab                        = 0; // 0 = Internet, 1 = LAN
 unsigned int configNetworkSystem                  = 0;
 unsigned int configPlayerInteraction              = 1;
 unsigned int configPlayerKnockbackStrength        = 25;
@@ -366,6 +369,9 @@ static const struct ConfigOption options[] = {
     {.name = "coop_host_save_slot",            .type = CONFIG_TYPE_UINT,   .uintValue   = &configHostSaveSlot},
     {.name = "coop_join_ip",                   .type = CONFIG_TYPE_STRING, .stringValue = (char*)&configJoinIp, .maxStringLength = MAX_CONFIG_STRING},
     {.name = "coop_join_port",                 .type = CONFIG_TYPE_UINT,   .uintValue   = &configJoinPort},
+    {.name = "coop_lan_port",                  .type = CONFIG_TYPE_UINT,   .uintValue   = &configLanPort},
+    {.name = "coop_lan_discovery",             .type = CONFIG_TYPE_BOOL,   .boolValue   = &configLanDiscovery},
+    {.name = "coop_join_tab",                  .type = CONFIG_TYPE_UINT,   .uintValue   = &configJoinTab},
     {.name = "coop_network_system",            .type = CONFIG_TYPE_UINT,   .uintValue   = &configNetworkSystem},
     {.name = "coop_player_interaction",        .type = CONFIG_TYPE_UINT,   .uintValue   = &configPlayerInteraction},
     {.name = "coop_player_knockback_strength", .type = CONFIG_TYPE_UINT,   .uintValue   = &configPlayerKnockbackStrength},
