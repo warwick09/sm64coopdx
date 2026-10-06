@@ -4,6 +4,9 @@ sm64coopdx is an online multiplayer project for the Super Mario 64 PC port that 
 
 Feel free to report bugs or contribute to the project.
 
+Warwick Notes:
+This fork adds a LAN browser to the "Join" button in game. This allows for a player to easily see games that are currently being played and their number of players and current save slot. Default Host discovery port is 7790. A client hosting a game will also broadcast this packet for discovery. Internet search is retained.  
+
 ## Initial Goal (Accomplished)
 Create a mod for the PC port where multiple people can play together online.
 
